@@ -18,7 +18,15 @@ export const connectDB = async () => {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false, // Disable mongoose buffering for serverless
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+      socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+      maxPoolSize: 1, // Maintain up to 1 socket connection for serverless
+      minPoolSize: 0, // Allow no connections when idle
     };
+
+    if (!ENV.MONGO_URI) {
+      throw new Error("MONGO_URI is not defined in environment variables");
+    }
 
     cached.promise = mongoose.connect(ENV.MONGO_URI, opts).then((mongoose) => {
       console.log("Connected to DB SUCCESSFULLY ✅");
