@@ -7,7 +7,7 @@ const HomeScreen = () => {
   return (
     <View>
       <Text>Home Screen</Text>
-      <Button onPress = {()=> signOut()} title="Signout"></Button>
+      <Button onPress = {()=> signOut()} title="Signoutt"></Button>
     </View>
   )
 }
